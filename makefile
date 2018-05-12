@@ -1,2 +1,2 @@
-BinarySearchTreeExample : BinarySearchTreeExample.cs BinarySearchTree.cs
-	csc BinarySearchTreeExample.cs BinarySearchTree.cs
+AVLTreeExample : AVLTreeExample.cs AVLTree.cs
+	csc AVLTreeExample.cs AVLTree.cs
