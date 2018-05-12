@@ -118,7 +118,7 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
       return false; // duplicates not allowed
     root.Height = 1 + Max(Height(root.Left),
                           Height(root.Right));
-    //Rebalance(ref root);
+    Rebalance(ref root);
     return result;
   }
 
