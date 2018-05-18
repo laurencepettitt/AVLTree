@@ -1,5 +1,5 @@
 # AVLTree
-A C# implementation of a generic Binary Search Tree data structure.
+A C# implementation of a generic AVL Tree data structure.
 
 ## Getting started
 A Binary Search Tree is a data structure that borrows from the concept of a decision tree.
@@ -20,7 +20,7 @@ The BST always maintains two rules, for any node N with value v,:
 
 A binary tree is said to be balanced if the Left and Right's subtrees' heights differ by at most one and the Left subtree is balanced and the Right subtree is balanced.
 
-Add, Remove and Delete are performed in O(logn) asymptotic complexity, if the tree is balanced. Otherwise, the complexity increases to O(n). So this kind of means, as long as the data which is added to the tree is unsorted, lookups will be fast.
+Add, Remove and Delete are performed in O(logn) asymptotic complexity.
 
 ### Installing
 Just include the AVLTree.cs file as a dependency upon compiling. So, for example, to compile the AVLTreeExample.cs which has the static void main() method and uses the AVLTree class in AVLTree.cs you would run the following command in Unix:
