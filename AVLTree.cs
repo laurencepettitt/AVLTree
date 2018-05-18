@@ -30,7 +30,9 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
       if ( t == null ) return "";
       string s = "";
       s += ToStringUtil(t.Right, height + 2);
-      s += new string (' ', height) + t.Val + " " + BalanceFactor(t) + '\n';
+      s += new string (' ', height) + t.Val;
+      //s += " (" + BalanceFactor(t) + ")";
+      s += "\n";
       s += ToStringUtil( t.Left, height + 2);
       return s;
     }
