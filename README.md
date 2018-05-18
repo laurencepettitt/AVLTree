@@ -1,4 +1,4 @@
-# BinarySearchTree
+# AVLTree
 A C# implementation of a generic Binary Search Tree data structure.
 
 ## Getting started
@@ -23,20 +23,20 @@ A binary tree is said to be balanced if the Left and Right's subtrees' heights d
 Add, Remove and Delete are performed in O(logn) asymptotic complexity, if the tree is balanced. Otherwise, the complexity increases to O(n). So this kind of means, as long as the data which is added to the tree is unsorted, lookups will be fast.
 
 ### Installing
-Just include the BinarySearchTree.cs file as a dependency upon compiling. So, for example, to compile the BinarySearchTreeExample.cs which has the static void main() method and uses the BinarySearchTree class in BinarySearchTree.cs you would run the following command in Unix:
+Just include the AVLTree.cs file as a dependency upon compiling. So, for example, to compile the AVLTreeExample.cs which has the static void main() method and uses the AVLTree class in AVLTree.cs you would run the following command in Unix:
 ```
-csc /target:exe BinarySearchTreeExample.cs BinarySearchTree.cs
+csc /target:exe AVLTreeExample.cs AVLTree.cs
 ```
 Or in Windows:
 ```
-csc.exe /target:exe BinarySearchTreeExample.cs BinarySearchTree.cs
+csc.exe /target:exe AVLExample.cs AVLTree.cs
 ```
 ### Usage
-See the BinarySearchTreeExample.cs source code for an example which provides a command line utility to Add, Remove and Delete integers in a BST, as well as print the BST in a readable format. The command line utility accepts four commands:
+See the AVLTreeExample.cs source code for an example which provides a command line utility to Add, Remove and Delete integers in a BST, as well as print the BST in a readable format. The command line utility accepts four commands:
 P - Prints the tree, sideways, such that the root is on the left and higher values are above lower ones.
 I <int> - Inserts <int> into tree. For example: I 4 
 Q <int> - Queries the tree and returns "Present" if found or "Absent" if not. Example: Q 4 (would return "Present)
 D <int> - Deletes an element from the tree, if Present. Example: D 4 (now the tree is empty)
 
 ### Issues
-Permission denied when running BinarySearchTreeExample.exe, you may need to run `chmod u+x BinarySearchTreeExample.exe` to grant execute permissions.
+Permission denied when running AVLTreeExample.exe, you may need to run `chmod u+x AVLTreeExample.exe` to grant execute permissions.
