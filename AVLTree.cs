@@ -30,9 +30,10 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
       if ( t == null ) return "";
       string s = "";
       s += ToStringUtil(t.Right, height + 2);
-      s += new string (' ', height) + t.Val;
+      //s += new string (' ', height) + t.Val;
+      s += t.Val + " ";
       //s += " (" + BalanceFactor(t) + ")";
-      s += "\n";
+      //s += "\n";
       s += ToStringUtil( t.Left, height + 2);
       return s;
     }
@@ -42,6 +43,7 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
   }
   
   Node Root;
+  public int Count = 0;
   
   public AVLTree() { Root = null; }
   
@@ -64,20 +66,20 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
     
   }
     
-  Node RotateRight(ref Node n) {
-    Node nLeft = n.Left;
-    n.Left = nLeft.Right;
-    nLeft.Right = n;
-    UpdateHeightsAfterRotation(nLeft);
-    return nLeft;
+  Node RotateRight(Node n) {
+    Node newSubRoot = n.Left;
+    n.Left = n.Left.Right;
+    newSubRoot.Right = n;
+    UpdateHeightsAfterRotation(newSubRoot);
+    return newSubRoot;
   }
   
-  Node RotateLeft(ref Node n) {
-    Node nRight = n.Right;
-    n.Right = nRight.Left;
-    nRight.Left = n;
-    UpdateHeightsAfterRotation(nRight);
-    return nRight;
+  Node RotateLeft(Node n) {
+    Node newSubRoot = n.Right;
+    n.Right = n.Right.Left;
+    newSubRoot.Left = n;
+    UpdateHeightsAfterRotation(newSubRoot);
+    return newSubRoot;
     
   }
   
@@ -85,21 +87,21 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
     int bF = BalanceFactor(root);
     // LeftLeft
     if (bF > 1 && BalanceFactor(root.Left) >= 0) {
-      root = RotateRight(ref root);
+      root = RotateRight(root);
     }
     // RightRight
     if (bF < -1 && BalanceFactor(root.Right) <= 0) {
-      root = RotateLeft(ref root);
+      root = RotateLeft(root);
     }
     // LeftRight
     if (bF > 1 && BalanceFactor(root.Left) < 0) {
-      root.Left = RotateLeft(ref root.Left);
-      root = RotateRight(ref root);
+      root.Left = RotateLeft(root.Left);
+      root = RotateRight(root);
     }
     // RightLeft
     if (bF < -1 && BalanceFactor(root.Right) > 0) {
-      root.Right = RotateRight(ref root.Right);
-      root = RotateLeft(ref root);
+      root.Right = RotateRight(root.Right);
+      root = RotateLeft(root);
     }
   }
   
@@ -110,6 +112,7 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
     bool result = true;
     if ( root == null ) {
       root = new Node(val, 1);
+      Count++;
       return true;
     }
     else if ( val.CompareTo(root.Val) < 0 )
@@ -133,25 +136,25 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
       T min = root.Val;
       root = null;
       return min;
-    } else {
+    } else
       return DeleteMin(ref root.Left);
-    }
   }
   
   bool DeleteFrom(ref Node root, T val) {
-    if ( root == null ) return false;
-    bool result = false;
+    if ( root == null ) return false; // not found
+    bool result = false; // arbitrary initialisation
     if ( val.CompareTo(root.Val) < 0 )
-      result = DeleteFrom(ref root.Left, val);
+      result = DeleteFrom(ref root.Left, val); // recurse left
     else if ( val.CompareTo(root.Val) > 0 )
-      result = DeleteFrom(ref root.Right, val);
+      result = DeleteFrom(ref root.Right, val); // recurse right
     else if ( val.CompareTo(root.Val) == 0 ) {
       if (root.Left != null && root.Right != null) {
         root.Val = DeleteMin(ref root.Right); // two children
       } else root = root.Left ?? root.Right; // at most one child
       result = true;
+      Count--;
     }
-    if (root == null) return true; // deleted root had no children
+    if (root == null) return true; // deleted node had no children
     root.Height = 1 + Max(Height(root.Left),
                           Height(root.Right));
     Rebalance(ref root);
