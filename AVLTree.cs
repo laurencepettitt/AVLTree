@@ -1,6 +1,6 @@
 using System;
-using static System.Console;
 using static System.Math;
+using System.Diagnostics;
 
 interface ISet<T>
 {
@@ -30,10 +30,10 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
       if ( t == null ) return "";
       string s = "";
       s += ToStringUtil(t.Right, height + 2);
-      //s += new string (' ', height) + t.Val;
-      s += t.Val + " ";
+      s += new string (' ', height) + t.Val;
+      //s += t.Val + " ";
       //s += " (" + BalanceFactor(t) + ")";
-      //s += "\n";
+      s += "\n";
       s += ToStringUtil( t.Left, height + 2);
       return s;
     }
@@ -67,6 +67,7 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
   }
     
   Node RotateRight(Node n) {
+    Debug.WriteLine($"~>RotateRight({n.Val})");
     Node newSubRoot = n.Left;
     n.Left = n.Left.Right;
     newSubRoot.Right = n;
@@ -75,33 +76,48 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
   }
   
   Node RotateLeft(Node n) {
+    Debug.WriteLine($"~>RotateLeft({n.Val})");
     Node newSubRoot = n.Right;
     n.Right = n.Right.Left;
     newSubRoot.Left = n;
     UpdateHeightsAfterRotation(newSubRoot);
     return newSubRoot;
-    
   }
   
   void Rebalance(ref Node root) {
     int bF = BalanceFactor(root);
+    void debugMessage(string s, T val) {
+      Debug.WriteLine($"CASE: {s} at {val}");
+    }
     // LeftLeft
     if (bF > 1 && BalanceFactor(root.Left) >= 0) {
+      debugMessage("LeftLeft", root.Val);
+      Debug.Indent(); 
       root = RotateRight(root);
+      Debug.Unindent(); 
     }
     // RightRight
     if (bF < -1 && BalanceFactor(root.Right) <= 0) {
+      debugMessage("RightRight", root.Val);
+      Debug.Indent(); 
       root = RotateLeft(root);
+      Debug.Unindent(); 
     }
     // LeftRight
     if (bF > 1 && BalanceFactor(root.Left) < 0) {
+      debugMessage("LeftRight", root.Val);
+      Debug.Indent(); 
       root.Left = RotateLeft(root.Left);
       root = RotateRight(root);
+      Debug.Unindent(); 
     }
     // RightLeft
     if (bF < -1 && BalanceFactor(root.Right) > 0) {
+      debugMessage("RightLeft", root.Val);
+      Debug.Indent(); 
       root.Right = RotateRight(root.Right);
       root = RotateLeft(root);
+      Debug.Unindent(); 
     }
   }
   
@@ -134,7 +150,7 @@ class AVLTree<T> : ISet<T> where T : IComparable<T>
     if (root == null) throw new NullReferenceException();
     if (root.Left == null) {
       T min = root.Val;
-      root = null;
+      root = root.Right;
       return min;
     } else
       return DeleteMin(ref root.Left);
