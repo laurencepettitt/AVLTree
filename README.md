@@ -33,10 +33,14 @@ csc.exe /target:exe AVLExample.cs AVLTree.cs
 ```
 ### Usage
 See the AVLTreeExample.cs source code for an example which provides a command line utility to Add, Remove and Delete integers in a BST, as well as print the BST in a readable format. The command line utility accepts four commands:
+
 P - Prints the tree, sideways, such that the root is on the left and higher values are above lower ones.
-I <int> - Inserts <int> into tree. For example: I 4 
-Q <int> - Queries the tree and returns "Present" if found or "Absent" if not. Example: Q 4 (would return "Present)
-D <int> - Deletes an element from the tree, if Present. Example: D 4 (now the tree is empty)
+
+I \<int\> - Inserts \<int\> into tree. For example: I 4 
+  
+Q \<int\> - Queries the tree and returns "Present" if found or "Absent" if not. Example: Q 4 (would return "Present)
+  
+D \<int\> - Deletes an element from the tree, if Present. Example: D 4 (now the tree is empty)
 
 ### Issues
 Permission denied when running AVLTreeExample.exe, you may need to run `chmod u+x AVLTreeExample.exe` to grant execute permissions.
