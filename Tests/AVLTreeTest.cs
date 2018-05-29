@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 //using System.Diagnostics;
 using static System.Diagnostics.Debug;
+using Trees;
 
 static class AVLTreeTest {
   static public void TestPassEpilogue() {
@@ -20,7 +21,7 @@ static class AVLTreeTest {
     int inserted = 0;
     for (int i = 0 ; i < 100 ; ++i) {
       int r = rand.Next(1000);
-      inserted += t.Insert(r) ? 1 : 0;
+      inserted += t.Add(r) ? 1 : 0;
       l.Add(r);
     }
     
@@ -35,7 +36,7 @@ static class AVLTreeTest {
     
     int deleted = 0;
     foreach (int i in l) 
-      deleted += t.Delete(i) ? 1 : 0;
+      deleted += t.Remove(i) ? 1 : 0;
             
     Assert(inserted == deleted, $"Number of values inserted ({inserted}) does not equal number of values deleted ({deleted}).");
     
@@ -52,7 +53,7 @@ static class AVLTreeTest {
     string expectedAfterRotation)
   {
     AVLTree<int> t = new AVLTree<int>();
-    Array.ForEach(valuesBeforeRotation, val => t.Insert(val));
+    Array.ForEach(valuesBeforeRotation, val => t.Add(val));
     string actualBeforeRotation = t.ToString();
     WriteLine($"TEST: AVLTreeTest.{testCaseName}");
     Assert(expectedBeforeRotation == actualBeforeRotation, "Unexpected textual representation.",
@@ -65,7 +66,7 @@ static class AVLTreeTest {
     Indent();
     //WriteLine(t);
     // right rotation after next insert..
-    t.Insert(valueWhichCausesRotation);
+    t.Add(valueWhichCausesRotation);
     //WriteLine(t);
     string actualAfterRotation = t.ToString();
     Assert(expectedAfterRotation == actualAfterRotation, "The class did not perform rotation correctly.",
